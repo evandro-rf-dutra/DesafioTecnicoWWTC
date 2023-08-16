@@ -3,7 +3,7 @@ package com.wwtc.teapi.Model;
 public class Transacao {
 
     private double valor;
-    private String dataHora; // mudar para LocalDate...
+    private String dataHora; // mudar para LocalDate ou Date...
 
     public Transacao(double valor, String dataHora){
         this.valor = valor;
