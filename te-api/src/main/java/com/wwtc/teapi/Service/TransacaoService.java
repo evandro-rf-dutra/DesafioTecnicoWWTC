@@ -24,7 +24,7 @@ public class TransacaoService {
      * metodo que adiciona dois registros pre definidos na lista de transações.
      */
     private void adicionaAlgumasTransacoes(){
-        this.listaTransacao.add(new Transacao(1000.12, LocalDateTime.now())); // isso aqui vai ser do tipo date
+        this.listaTransacao.add(new Transacao(1000.12, LocalDateTime.now()));
         this.listaTransacao.add(new Transacao(1200.00, LocalDateTime.now()));
         
     }
@@ -37,10 +37,6 @@ public class TransacaoService {
         return this.listaTransacao;
     }
 
-    // VALIDAR JSON
-    ////  TESTAR SE É JSON ???
-    ////  TESTAR SE TODOS AS VARIAVEIS FORAM PREENCHIDAS
-
     /**
      * Metodo que recebe o objeto do tipo Transacao,
      * realiza as devidas validações, 
@@ -50,19 +46,27 @@ public class TransacaoService {
      * */
     public boolean salvarTransacao(Transacao transacao) {
 
-        // validacao da transacao
-        //    se foi passado valor, e se é maior que zero.
+        // validacao da transacao se falhar retorna 422
+
+        // Se foi passado um valor, e se é maior que zero.
         // isso tambem elimina a questao do valor nao ser passado no json
         if( transacao.getValor() > 0 ){
-            // se foi passado a data e a hora, e se estão no formato correto
-            //   ou seja dataHora deve ser menor que a atual. (notation jakarta Model)
-            //if(transacao.getDataHora() != null){
-                // IF transacao dataHora no passado
+            // se foi passado a data e a hora e se esta no formato correto (notation jakarta na classe Transacao)
+            //  e a dataHora da transacao deve ser no passado.
+            if(transacao.getDataHora().isBefore(LocalDateTime.now())){
+                //
+                // tudo ok entao add na lista
                 this.listaTransacao.add(transacao);
                 return true;
-            //}
+            }
         }
         return false;
+    }
+
+    /** método que remove todos os itens da lista de transações */
+    public void deletarTransacoes() {
+        this.listaTransacao.clear();
+        // PODERIA TER ALGUMA FORMA DE VALIDAR SE DELETOU MESMO
     }
     
 }
