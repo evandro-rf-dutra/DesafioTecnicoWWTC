@@ -1,4 +1,5 @@
 package com.wwtc.teapi.Service;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import org.springframework.stereotype.Service;
 import com.wwtc.teapi.Model.Transacao;
@@ -23,8 +24,8 @@ public class TransacaoService {
      * metodo que adiciona dois registros pre definidos na lista de transações.
      */
     private void adicionaAlgumasTransacoes(){
-        this.listaTransacao.add(new Transacao(1000.12, "25/10/2023 18:10:00")); // isso aqui vai ser do tipo date
-        this.listaTransacao.add(new Transacao(1200.00, "30/08/2023 07:45:30"));
+        this.listaTransacao.add(new Transacao(1000.12, LocalDateTime.now())); // isso aqui vai ser do tipo date
+        this.listaTransacao.add(new Transacao(1200.00, LocalDateTime.now()));
         
     }
 
@@ -50,12 +51,16 @@ public class TransacaoService {
     public boolean salvarTransacao(Transacao transacao) {
 
         // validacao da transacao
-        if( transacao.getValor() >= 0 ){
-            if(transacao.getDataHora() != null){
+        //    se foi passado valor, e se é maior que zero.
+        // isso tambem elimina a questao do valor nao ser passado no json
+        if( transacao.getValor() > 0 ){
+            // se foi passado a data e a hora, e se estão no formato correto
+            //   ou seja dataHora deve ser menor que a atual. (notation jakarta Model)
+            //if(transacao.getDataHora() != null){
                 // IF transacao dataHora no passado
                 this.listaTransacao.add(transacao);
                 return true;
-            }
+            //}
         }
         return false;
     }

@@ -1,11 +1,15 @@
 package com.wwtc.teapi.Model;
+import java.time.LocalDateTime;
+import jakarta.validation.constraints.NotNull;
 
 public class Transacao {
 
     private double valor;
-    private String dataHora; // mudar para LocalDate ou Date...
 
-    public Transacao(double valor, String dataHora){
+    @NotNull(message = "Campo não informado!")
+    private LocalDateTime dataHora;
+
+    public Transacao(double valor, LocalDateTime dataHora){
         this.valor = valor;
         this.dataHora = dataHora;
     }
@@ -18,11 +22,11 @@ public class Transacao {
         this.valor = valor;
     }
 
-    public String getDataHora() {
+    public LocalDateTime getDataHora() {
         return dataHora;
     }
 
-    public void setDataHora(String dataHora) {
+    public void setDataHora(LocalDateTime dataHora) {
         this.dataHora = dataHora;
     }
      
