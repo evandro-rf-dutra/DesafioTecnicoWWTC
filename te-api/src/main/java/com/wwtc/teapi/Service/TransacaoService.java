@@ -7,13 +7,14 @@ import com.wwtc.teapi.Model.Transacao;
 @Service
 public class TransacaoService {
 
-    // lista onde serao armazenadas em memória as transações cadastradas pelo POST
+    // lista onde serão armazenadas em memória as transações cadastradas pelo POST
     private ArrayList<Transacao> listaTransacao;
 
     /**
      * construtor da classe.
      * instancia e inicializa a lista.
      * adiciona alguns registros para testar o GET
+     * e tmb para ter o modelo do formato da data, para inserir transacoes com o POST.
      */
     public TransacaoService(){
         this.listaTransacao = new ArrayList<Transacao>();
@@ -21,17 +22,17 @@ public class TransacaoService {
     }
 
     /**
-     * metodo que adiciona dois registros pre definidos na lista de transações.
+     * metodo que adiciona dois registros pre definidos na lista de transações,
+     * com a data e hora atual.
      */
     private void adicionaAlgumasTransacoes(){
-        this.listaTransacao.add(new Transacao(1000.12, LocalDateTime.now()));
-        this.listaTransacao.add(new Transacao(1200.00, LocalDateTime.now()));
+        this.listaTransacao.add(new Transacao(1000.50, LocalDateTime.now()));
+        this.listaTransacao.add(new Transacao(1200.75, LocalDateTime.now()));
         
     }
 
     /**
      * método que retorna toda a lista de transações
-     * @return ArrayList<Transacao>
      */
     public ArrayList<Transacao> retornaTransacao(){
         return this.listaTransacao;
@@ -51,7 +52,7 @@ public class TransacaoService {
         // Se foi passado um valor, e se é maior que zero.
         // isso tambem elimina a questao do valor nao ser passado no json
         if( transacao.getValor() > 0 ){
-            // se foi passado a data e a hora e se esta no formato correto (notation jakarta na classe Transacao)
+            // se foi passada a data e a hora, e se esta no formato correto (notation jakarta na classe Transacao)
             //  e a dataHora da transacao deve ser no passado.
             if(transacao.getDataHora().isBefore(LocalDateTime.now())){
                 //

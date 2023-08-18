@@ -1,9 +1,7 @@
 package com.wwtc.teapi.Controller;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.wwtc.teapi.Model.Transacao;
 import com.wwtc.teapi.Service.TransacaoService;
-
 import jakarta.validation.Valid;
 
 @RestController
@@ -33,13 +29,11 @@ public class TransacaoController {
 
     /**
      * método que retorna a lista completa de transacoes.
-     * @return ArrayList<Transacao>
      */
     @GetMapping
     public ArrayList<Transacao> retornaTransacao(){
         return service.retornaTransacao();
     }
-
 
     /**
      * 
@@ -51,7 +45,7 @@ public class TransacaoController {
     public ResponseEntity<Transacao> salvarTransacao(@RequestBody @Valid Transacao transacao){
         // (RequestBody realiza o mapeamento json -> classe Transacao)
         // os atributos que não foram passados no json serão setados com null ou 0 no atributo do objeto.
-        // se o o json não etiver no mesmo formato do atributo da classe retorna 400.
+        // se o o json não etiver no mesmo formato do atributo da classe, entao retorna 400.
 
         boolean teste = service.salvarTransacao(transacao);
         
@@ -82,6 +76,8 @@ public class TransacaoController {
         Map<String, String> errors = new HashMap<>();
 
         // MUDAR ISSO AQUI DEPOIS
+        // de acordo com as notation colocadas nos models da para exibir mensagens de erro mais especificas
+        // ou tmb deixar sem body ou criar mensagens padrao.
 
         ex.getBindingResult().getAllErrors().forEach((error) -> {
             String fieldName = ((FieldError) error).getField();

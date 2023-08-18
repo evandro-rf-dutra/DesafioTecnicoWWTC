@@ -6,6 +6,8 @@ public class Transacao {
 
     private double valor;
 
+    // insto aqui pode ser utilizado para personalizar as mensagens de erro.
+    // tem outras formas por meio do código, mas essa notation diminui o codigo, porem achei limitada.
     @NotNull(message = "Campo não informado!")
     private LocalDateTime dataHora;
 
